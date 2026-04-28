@@ -26,7 +26,7 @@ import Foundation
 
 //Initializes the array of parking spaces
 //The number of spaces is hard-coded, but can be changed by editing the line below (must be >0)
-Garage.initializeGarage(numSpaces: 5)
+Garage.initializeGarage(numSpaces: 15)
 
 while (true)
 {
