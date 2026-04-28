@@ -26,13 +26,14 @@ import Foundation
 
 //Initializes the array of parking spaces
 //The number of spaces is hard-coded, but can be changed by editing the line below (must be >0)
-Garage.initializeGarage(numSpaces: 15)
+Garage.initializeGarage(numSpaces: 5)
 
 while (true)
 {
     print("Input the number for what you would like to do (or 0 to quit)")
     print("1: Park a car (\(Garage.numOpenSpaces()) open space(s))")
     print("2: Remove a car")
+    print("3: See the garage")
     
     let response = Int(readLine()!)
     
@@ -47,6 +48,12 @@ while (true)
     }
     else if (response == 1) { parkCar() }
     else if (response == 2) { removeCar() }
+    else if (response == 3)
+    {
+        print("\n\(Garage.numOpenSpaces()) space(s) available (press enter to continue)")
+        Garage.displayGarage()
+        readLine()
+    }
     else
     {
         print("\(response!) was not an option, please try again")
@@ -78,8 +85,20 @@ func parkCar()
         }
         else if (Garage.checkSpace(response!-1) != nil)     //If the index is within the array
         {
-            print("What is your license plate number?")
-            let plate = readLine()!
+            var plate: String = ""
+            if (Garage.checkSpace(response!-1) == "Open")
+            {
+                while (plate.count <= 0 || plate.count > 10)
+                {
+                    print("What is your license plate number?")
+                    plate = readLine()!
+                    
+                    if (plate.count <= 0 || plate.count > 10)
+                    {
+                        print("The license plate must be between 1 and 10 characters long")
+                    }
+                }
+            }
             
             //Tries to park a car there, and returns to the menu if it's successful
             if (Garage.parkCar(response!-1, plate)) { break }
